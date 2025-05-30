@@ -2,14 +2,16 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <!-- タイトル -->
+    <h1 class="text-xl font-semibold title-font text-gray-800 mb-4 text-center">ログイン</h1>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('auth.email')" />
+            <x-input-error :messages="$errors->get('email')" />
+            <x-input-label for="email" :value="__('auth.email')" class="mt-2" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <!-- Password -->
