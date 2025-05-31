@@ -23,7 +23,7 @@ class CountController extends Controller
      */
     public function create()
     {
-        //
+        return view('counts.create');
     }
 
     /**
