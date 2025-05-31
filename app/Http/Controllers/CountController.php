@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Count;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 class CountController extends Controller
 {
@@ -15,7 +18,20 @@ class CountController extends Controller
      */
     public function index()
     {
-        return view('counts.index');
+        // countsテーブルのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $counts = $user
+        ->counts()
+        ->latest() // created_at の降順(最新順)
+        ->first(); // 1件だけ取得
+
+        // 本日の日付 - 開始日 = 経過日数
+        $today = Carbon::today(); // 本日の日付 
+        $start = Carbon::parse($counts->started_at); // 開始日
+        $counts->elapsedDays = $start->diffInDays($today); // 経過日数
+
+        return view('counts.index', compact('counts'));
     }
 
     /**

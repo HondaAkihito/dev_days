@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Count extends Model
 {
@@ -15,4 +16,15 @@ class Count extends Model
         'memo',
         'user_id',
     ];
+
+    // キャスト
+    protected $casts = [
+        'started_at' => 'date',
+    ];
+
+    // Userモデル リレーション
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
