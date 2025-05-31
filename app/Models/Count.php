@@ -28,10 +28,4 @@ class Count extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    // countsテーブルのデータ取得 → create or indexへ遷移ロジックに使用
-    public function latestCount()
-    {
-        return $this->counts()->latest()->first();
-    }
 }
