@@ -11,7 +11,7 @@
               <div class="p-6 text-gray-900">
                 <div class="flex flex-col items-center space-y-4">
                     <div class="text-lg font-semibold">『 {{ $counts->title }} 』</div>
-                    <div class="text-sm text-gray-600">「 {{ $counts->started_at->format('n') }}月{{ $counts->started_at->format('j') }}日 」から作成</div>
+                    <div class="text-sm text-gray-600">「 {{ $counts->formatted_started_at }} 」から作成</div>
                 
                     <div class="relative w-32 h-32 flex justify-center items-center">
                         <div class="w-full h-full border-4 border-gray-600 rounded-md flex items-center justify-center text-4xl font-bold">
@@ -23,17 +23,19 @@
                     </div>
                 
                     <div class="flex space-x-4 mt-4">
-                        <!-- 作成完了：やや落ち着いた赤 -->
+                        <!-- 作成完了 -->
                         <button class="flex mx-auto text-black bg-red-300 border-0 py-1 px-2 focus:outline-none hover:bg-red-400 rounded text-lg">
                             作成完了
                         </button>
                     
-                        <!-- 編集：やや落ち着いた緑 -->
-                        <button class="flex mx-auto text-black bg-green-300 border-0 py-1 px-2 focus:outline-none hover:bg-green-400 rounded text-lg">
-                            編集
-                        </button>
+                        <!-- 編集 -->
+                        <form action="{{ route('counts.edit', ['count' => $counts->id]) }}">
+                            <button class="flex mx-auto text-black bg-green-300 border-0 py-1 px-2 focus:outline-none hover:bg-green-400 rounded text-lg">
+                                編集
+                            </button>
+                        </form>
                     
-                        <!-- リセット：やや落ち着いた黄 -->
+                        <!-- リセット -->
                         <button class="flex mx-auto text-black bg-yellow-200 border-0 py-1 px-2 focus:outline-none hover:bg-yellow-300 rounded text-lg">
                             リセット
                         </button>

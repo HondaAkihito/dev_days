@@ -19,7 +19,7 @@ class Count extends Model
 
     // キャスト
     protected $casts = [
-        'started_at' => 'date',
+        // 'started_at' => 'date',
         'is_completed' => 'boolean',
     ];
 

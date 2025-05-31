@@ -31,11 +31,14 @@ class CountController extends Controller
             return redirect()->route('counts.create');
         }
 
+        
         // 本日の日付 - 開始日 = 経過日数
         $today = Carbon::today(); // 本日の日付 
         $start = Carbon::parse($counts->started_at); // 開始日
         $counts->elapsedDays = $start->diffInDays($today); // 経過日数
-
+        // 日付を Carbon で表示(05月を5月と表示するため)
+        $counts->formatted_started_at = Carbon::parse($counts->started_at)->format('n月j日');
+        
         return view('counts.index', compact('counts'));
     }
 
@@ -96,7 +99,12 @@ class CountController extends Controller
      */
     public function edit($id)
     {
-        //
+        // countsテーブルのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $count = $user->counts()->latest()->find($id);
+
+        return view('counts.edit', compact('count'));
     }
 
     /**
