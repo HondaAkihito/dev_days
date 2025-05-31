@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Count;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CountController extends Controller
 {
@@ -34,7 +36,14 @@ class CountController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Count::create([
+            'title' => $request->title,
+            'started_at' => $request->started_at,
+            'memo' => $request->memo,
+            'user_id' => Auth::id(),
+        ]);
+
+        return to_route('counts.index');
     }
 
     /**

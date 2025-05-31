@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Count extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'started_at',
+        'memo',
+        'user_id',
+    ];
 }
