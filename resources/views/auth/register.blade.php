@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <!-- タイトル -->
+    <h1 class="text-xl font-semibold title-font text-gray-800 mb-4 text-center">新規登録</h1>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
