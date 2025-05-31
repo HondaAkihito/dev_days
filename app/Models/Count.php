@@ -20,11 +20,18 @@ class Count extends Model
     // キャスト
     protected $casts = [
         'started_at' => 'date',
+        'is_completed' => 'boolean',
     ];
 
     // Userモデル リレーション
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // countsテーブルのデータ取得 → create or indexへ遷移ロジックに使用
+    public function latestCount()
+    {
+        return $this->counts()->latest()->first();
     }
 }

@@ -49,10 +49,7 @@ class CountController extends Controller
         // countsテーブルのデータ取得
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $counts = $user
-        ->counts()
-        ->latest() // created_at の降順(最新順)
-        ->first(); // 1件だけ取得
+        $counts = $user->latestCount(); // Counts に記載
 
         // createへの分岐(レコードが存在 かつ 未完了)
         if($counts && $counts->is_completed === false ) {

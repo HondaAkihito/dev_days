@@ -12,11 +12,20 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('counts.index')" :active="request()->routeIs('counts.index')">
-                        現在のDevDays
-                    </x-nav-link>
-                    <x-nav-link :href="route('counts.create')" :active="request()->routeIs('counts.create')">
-                        DevDays作成
+                    @php
+                        if(!is_null($latestCount) && $latestCount->is_completed === false) {
+                            $route = route('counts.index');
+                            $label = '現在のDevDays';
+                            $active = request()->routeIs('counts.index');
+                        } else {
+                            $route = route('counts.create');
+                            $label = 'DevDays作成';
+                            $active = request()->routeIs('counts.create');
+                        }
+                    @endphp
+                
+                    <x-nav-link :href="$route" :active="$active">
+                        {{ $label }}
                     </x-nav-link>
                 </div>
             </div>
