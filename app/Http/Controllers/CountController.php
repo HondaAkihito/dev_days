@@ -31,7 +31,6 @@ class CountController extends Controller
             return redirect()->route('counts.create');
         }
 
-        
         // 本日の日付 - 開始日 = 経過日数
         $today = Carbon::today(); // 本日の日付 
         $start = Carbon::parse($counts->started_at); // 開始日
@@ -103,6 +102,14 @@ class CountController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
         $count = $user->counts()->latest()->find($id);
+
+        // 他人のレコード → !$count で弾かれる
+        // 存在しないID → !$count で弾かれる
+        // 自分の古いレコード → id !== latest->id で弾かれる
+        $latest = $user->counts()->latest()->first();
+        if(!$count || $count->id !== $latest->id) {
+            abort(403);
+        }
 
         return view('counts.edit', compact('count'));
     }
