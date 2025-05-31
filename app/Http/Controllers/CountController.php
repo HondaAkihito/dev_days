@@ -26,6 +26,11 @@ class CountController extends Controller
         ->latest() // created_at の降順(最新順)
         ->first(); // 1件だけ取得
 
+        // createへの分岐(レコードが存在しない or 完了済み)
+        if(is_null($counts) || $counts->is_completed === true ) {
+            return redirect()->route('counts.create');
+        }
+
         // 本日の日付 - 開始日 = 経過日数
         $today = Carbon::today(); // 本日の日付 
         $start = Carbon::parse($counts->started_at); // 開始日
@@ -41,6 +46,19 @@ class CountController extends Controller
      */
     public function create()
     {
+        // countsテーブルのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $counts = $user
+        ->counts()
+        ->latest() // created_at の降順(最新順)
+        ->first(); // 1件だけ取得
+
+        // createへの分岐(レコードが存在 かつ 未完了)
+        if($counts && $counts->is_completed === false ) {
+            return redirect()->route('counts.index');
+        }
+
         return view('counts.create');
     }
 
