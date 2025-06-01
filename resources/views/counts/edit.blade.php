@@ -10,8 +10,9 @@
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 text-gray-900">
                 <section class="text-gray-600 body-font relative">
-                    <form action="" method="POST">
+                    <form action="{{ route('counts.update', ['count' => $count->id ]) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
                         <div class="container px-5 mx-auto">
                         <div class="lg:w-1/2 md:w-2/3 mx-auto">
@@ -38,7 +39,7 @@
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
-                                    <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">作成する</button>
+                                    <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">更新する</button>
                                 </div>
                             </div>
                         </div>

@@ -28,7 +28,7 @@ class CountController extends Controller
 
         // createへの分岐(レコードが存在しない or 完了済み)
         if(is_null($counts) || $counts->is_completed === true ) {
-            return redirect()->route('counts.create');
+            return to_route('counts.create');
         }
 
         // 本日の日付 - 開始日 = 経過日数
@@ -55,7 +55,7 @@ class CountController extends Controller
 
         // createへの分岐(レコードが存在 かつ 未完了)
         if($counts && $counts->is_completed === false ) {
-            return redirect()->route('counts.index');
+            return to_route('counts.index');
         }
 
         return view('counts.create');
@@ -123,7 +123,17 @@ class CountController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // countsテーブルのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $count = $user->counts()->latest()->find($id);
+
+        $count->title = $request->title;
+        $count->started_at = $request->started_at;
+        $count->memo = $request->memo;
+        $count->save();
+
+        return to_route('counts.index');
     }
 
     /**
