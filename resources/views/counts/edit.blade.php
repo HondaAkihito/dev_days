@@ -20,22 +20,25 @@
                                 {{-- タイトル --}}
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                    <label for="title" class="leading-7 text-sm text-gray-600">ポートフォリオ名</label>
-                                    <input type="text" id="title" name="title" value="{{ $count->title }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <label for="title" class="leading-7 text-sm text-gray-600">ポートフォリオ名</label>
+                                        <input type="text" id="title" name="title" value="{{ $count->title }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
                                     </div>
                                 </div>
                                 {{-- 作成開始日 --}}
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                    <label for="started_at" class="leading-7 text-sm text-gray-600">作成開始日</label>
-                                    <input type="date" id="started_at" name="started_at" value="{{ $count->started_at }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <label for="started_at" class="leading-7 text-sm text-gray-600">作成開始日</label>
+                                        <input type="date" id="started_at" name="started_at" value="{{ $count->started_at }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <x-input-error :messages="$errors->get('started_at')" class="mt-2" />
                                     </div>
                                 </div>
                                 {{-- メモ --}}
                                 <div class="p-2 w-full">
                                     <div class="relative">
-                                    <label for="memo" class="leading-7 text-sm text-gray-600">メモ欄</label>
-                                    <textarea id="memo" name="memo" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-y leading-6 transition-colors duration-200 ease-in-out">{{ $count->memo }}</textarea>
+                                        <label for="memo" class="leading-7 text-sm text-gray-600">メモ欄</label>
+                                        <textarea id="memo" name="memo" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-y leading-6 transition-colors duration-200 ease-in-out">{{ $count->memo }}</textarea>
+                                        <x-input-error :messages="$errors->get('memo')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
