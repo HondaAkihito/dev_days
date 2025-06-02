@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Count;
-use App\Models\User;
 use App\Services\CountService;
+use App\Http\Requests\StoreCountRequest;
+use App\Http\Requests\UpdateCountRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
 
 class CountController extends Controller
 {
@@ -64,7 +63,7 @@ class CountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCountRequest $request)
     {
         // カウントを保存
         CountService::storeCount($request);
@@ -114,7 +113,7 @@ class CountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCountRequest $request, $id)
     {
         // countsテーブルのデータ取得
         /** @var \App\Models\User $user */
