@@ -164,6 +164,8 @@ return [
         // 新規登録
         'name' => '名前',
         'email' => 'メールアドレス',
+
+        // counts - create, update
         'title' => 'ポートフォリオ名',
         'started_at' => '作成開始日',
         'memo' => 'メモ欄',
