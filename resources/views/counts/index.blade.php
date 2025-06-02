@@ -36,18 +36,31 @@
                         </form>
                     
                         <!-- リセット -->
-                        <button class="flex mx-auto text-black bg-yellow-200 border-0 py-1 px-2 focus:outline-none hover:bg-yellow-300 rounded text-lg">
-                            リセット
-                        </button>
+                        <form action="{{ route('counts.destroy', ['count' => $counts->id]) }}"
+                            method="post"
+                            id="delete_{{ $counts->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" data-id="{{ $counts->id }}" onclick="deletePost(this)" class="flex mx-auto text-black bg-yellow-200 border-0 py-1 px-2 focus:outline-none hover:bg-yellow-300 rounded text-lg">
+                                リセット
+                            </button>
+                        </form>
                     </div>
                     
                 </div>
-                
-                
-                
-                
               </div>
           </div>
       </div>
   </div>
+
+<!-- 確認メッセージ -->
+<script>
+function deletePost(e) {
+    'use strict'
+    if(confirm('本当に削除していいですか？')) {
+        document.getElementById('delete_' + e.dataset.id).submit()
+    }
+}
+</script>
+
 </x-app-layout>

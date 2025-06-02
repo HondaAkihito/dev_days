@@ -144,6 +144,13 @@ class CountController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // countsテーブルのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $count = $user->counts()->latest()->find($id);
+
+        $count->delete();
+
+        return to_route('counts.create');
     }
 }
