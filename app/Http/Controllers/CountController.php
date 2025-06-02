@@ -143,4 +143,18 @@ class CountController extends Controller
 
         return to_route('counts.create');
     }
+
+    public function complete($id)
+    {
+        // countsテーブルのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $count = $user->counts()->latest()->find($id);
+
+        $count->completed_at = Carbon::today();
+        $count->is_completed = true;
+        $count->save();
+
+        return to_route('counts.create'); 
+    }
 }

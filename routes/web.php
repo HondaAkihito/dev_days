@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // 日数カウンター
 Route::middleware('auth')->group(function () {
     Route::resource('counts', CountController::class);
+    Route::post('counts/{count}', [CountController::class, 'complete'])->name('counts.complete');
 });
 
 Route::get('/', function () {

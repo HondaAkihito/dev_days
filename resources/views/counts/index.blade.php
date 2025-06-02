@@ -23,10 +23,20 @@
                     </div>
                 
                     <div class="flex space-x-4 mt-4">
-                        <!-- 作成完了 -->
-                        <button class="flex mx-auto text-black bg-red-300 border-0 py-1 px-2 focus:outline-none hover:bg-red-400 rounded text-lg">
-                            作成完了
-                        </button>
+                        <form action="{{ route('counts.complete', ['count' => $counts->id]) }}"
+                            method="post"
+                            id="complete_{{ $counts->id }}">
+                            @csrf
+                            <!-- 作成完了 -->
+                            <button type="button" 
+                                    data-id="{{ $counts->id }}" 
+                                    data-form="complete"
+                                    data-message="本当に完了よろしいですか？"
+                                    onclick="confirmAndSubmit(this)"
+                                    class="flex mx-auto text-black bg-red-300 border-0 py-1 px-2 focus:outline-none hover:bg-red-400 rounded text-lg">
+                                作成完了
+                            </button>
+                        </form>
                     
                         <!-- 編集 -->
                         <form action="{{ route('counts.edit', ['count' => $counts->id]) }}">
@@ -41,7 +51,12 @@
                             id="delete_{{ $counts->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="button" data-id="{{ $counts->id }}" onclick="deletePost(this)" class="flex mx-auto text-black bg-yellow-200 border-0 py-1 px-2 focus:outline-none hover:bg-yellow-300 rounded text-lg">
+                            <button type="button" 
+                                    data-id="{{ $counts->id }}"
+                                    data-form="delete"
+                                    data-message="本当に削除していいですか？"
+                                    onclick="confirmAndSubmit(this)"
+                                    class="flex mx-auto text-black bg-yellow-200 border-0 py-1 px-2 focus:outline-none hover:bg-yellow-300 rounded text-lg">
                                 リセット
                             </button>
                         </form>
@@ -61,12 +76,16 @@
       </div>
   </div>
 
-<!-- 確認メッセージ -->
 <script>
-function deletePost(e) {
-    'use strict'
-    if(confirm('本当に削除していいですか？')) {
-        document.getElementById('delete_' + e.dataset.id).submit()
+// 確認メッセージ(完了時、削除時)
+function confirmAndSubmit(el) {
+    'use strict';
+    const id = el.dataset.id;
+    const formId = el.dataset.form;
+    const message = el.dataset.message;
+
+    if(confirm(message)) {
+        document.getElementById(`${formId}_${id}`).submit();
     }
 }
 </script>

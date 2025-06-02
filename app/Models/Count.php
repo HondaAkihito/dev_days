@@ -15,11 +15,14 @@ class Count extends Model
         'started_at',
         'memo',
         'user_id',
+        'completed_at',
+        'is_completed',
+        'image_path',
+        'url',
     ];
 
     // キャスト
     protected $casts = [
-        // 'started_at' => 'date',
         'is_completed' => 'boolean',
     ];
 
