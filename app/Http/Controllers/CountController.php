@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Count;
 use App\Models\User;
+use App\Services\CountService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -21,20 +22,16 @@ class CountController extends Controller
         // countsテーブルのデータ取得
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $counts = $user
-        ->counts()
-        ->latest() // created_at の降順(最新順)
-        ->first(); // 1件だけ取得
+        $counts = $user->latestCount(); // Counts に記載
 
         // createへの分岐(レコードが存在しない or 完了済み)
         if(is_null($counts) || $counts->is_completed === true ) {
             return to_route('counts.create');
         }
 
-        // 本日の日付 - 開始日 = 経過日数
-        $today = Carbon::today(); // 本日の日付 
-        $start = Carbon::parse($counts->started_at); // 開始日
-        $counts->elapsedDays = $start->diffInDays($today); // 経過日数
+        // 経過日数の取得(本日の日付 - 開始日 = 経過日数)
+        $counts = CountService::getElapsedDays($counts);
+
         // 日付を Carbon で表示(05月を5月と表示するため)
         $counts->formatted_started_at = Carbon::parse($counts->started_at)->format('n月j日');
         
@@ -69,12 +66,8 @@ class CountController extends Controller
      */
     public function store(Request $request)
     {
-        Count::create([
-            'title' => $request->title,
-            'started_at' => $request->started_at,
-            'memo' => $request->memo,
-            'user_id' => Auth::id(),
-        ]);
+        // カウントを保存
+        CountService::storeCount($request);
 
         return to_route('counts.index');
     }
@@ -128,10 +121,8 @@ class CountController extends Controller
         $user = Auth::user();
         $count = $user->counts()->latest()->find($id);
 
-        $count->title = $request->title;
-        $count->started_at = $request->started_at;
-        $count->memo = $request->memo;
-        $count->save();
+        // カウントを保存
+        CountService::updateCount($count, $request);
 
         return to_route('counts.index');
     }

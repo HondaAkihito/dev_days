@@ -58,6 +58,7 @@ class User extends Authenticatable
     }
 
     // countsテーブルのデータ取得 → create or indexへ遷移ロジックに使用
+    // ナビゲーション、コントローラーで使用
     public function latestCount()
     {
         return $this->counts()->latest()->first();
