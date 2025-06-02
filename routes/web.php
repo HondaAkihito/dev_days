@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CountController;
+use App\Http\Controllers\CountCompleteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// 日数カウンター
 Route::middleware('auth')->group(function () {
+    // 日数カウンター
     Route::resource('counts', CountController::class);
     Route::post('counts/{count}', [CountController::class, 'complete'])->name('counts.complete');
+    
+    // カウンター完了
+    Route::resource('completes', CountCompleteController::class);
 });
 
 Route::get('/', function () {
