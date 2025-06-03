@@ -10,7 +10,7 @@
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 text-gray-900">
                 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                    <table class="table-auto w-full text-left whitespace-no-wrap">
+                    <table class="whitespace-nowrap table-auto w-full text-left">
                       <thead>
                         <tr>
                           <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl-lg">詳細</th>
