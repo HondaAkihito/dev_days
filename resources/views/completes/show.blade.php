@@ -61,11 +61,8 @@
                                     <div class="p-2 w-full">
                                         <div class="relative">
                                             <label class="leading-7 text-sm text-gray-600">コメント</label>
-                                            {{-- @if($completedCount->comment) --}}
-                                                <div
-                                                    class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-6 transition-colors duration-200 ease-in-out min-h-32 break-words overflow-y-auto resize-y">
-                                                    {{ $completedCount->comment }}</div>
-                                            {{-- @endif --}}
+                                            {{-- この1行は改行しない(whitespace-pre-wrap使用のため) --}}
+                                            <div class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-6 transition-colors duration-200 ease-in-out h-32 break-words overflow-y-auto resize-y whitespace-pre-wrap">{{ $completedCount->memo }}</div>
                                         </div>
                                     </div>
 

@@ -64,11 +64,8 @@
                     
                     {{-- メモ欄 --}}
                     @if($count->memo)
-                    <div class="mt-6 w-full max-w-md mx-auto bg-gray-100 p-4 rounded shadow text-gray-800">
-                        <h3 class="text-md font-bold mb-2">メモ</h3>
-                        <p class="text-sm">
-                            {{ $count->memo }}
-                        </p>
+                    <div class="mt-6 w-full max-w-md mx-auto bg-gray-100 p-4 rounded shadow text-gray-800 overflow-y-auto resize-y h-32">
+                        <p class="text-sm whitespace-pre-wrap break-words">{{ $count->memo }}</p>
                     </div>
                     @endif
                 </div>
