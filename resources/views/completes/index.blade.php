@@ -26,7 +26,6 @@
                           <td class="border-t-2 border-gray-200 px-4 py-3">{{ $completedCount->title }}</td>
                           <td class="border-t-2 border-gray-200 px-4 py-3">{{ $completedCount->elapsedDays }}日</td>
                           <td class="border-t-2 border-gray-200 px-4 py-3 text-lg text-gray-900">{{ $completedCount->started_at }} 〜 {{ $completedCount->completed_at }}</td>
-                            <input name="plan" type="radio">
                           </td>
                         </tr>
                         @endforeach

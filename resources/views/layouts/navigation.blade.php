@@ -23,9 +23,11 @@
                             $active = request()->routeIs('counts.create');
                         }
                     @endphp
-                
                     <x-nav-link :href="$route" :active="$active">
                         {{ $label }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('completes.index')" :active="request()->routeIs('completes.index')">
+                        完了DevDays一覧
                     </x-nav-link>
                 </div>
             </div>
@@ -90,10 +92,12 @@
                 $active = request()->routeIs('counts.create');
             }
             @endphp
-        
-            <x-nav-link :href="$route" :active="$active">
+            <x-responsive-nav-link :href="$route" :active="$active">
                 {{ $label }}
-            </x-nav-link>
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('completes.index')" :active="request()->routeIs('completes.index')">
+                完了DevDays一覧
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
