@@ -22,7 +22,9 @@
                       <tbody>
                         @foreach($completedCounts as $completedCount)
                         <tr>
-                          <td class="border-t-2 border-gray-200 px-4 py-3">#</td>
+                          <td class="border-t-2 border-gray-200 px-4 py-3">
+                              <a href="{{ route('completes.show', ['complete' => $completedCount->id]) }}" class="text-blue-500">詳細</a>
+                          </td>
                           <td class="border-t-2 border-gray-200 px-4 py-3">{{ $completedCount->title }}</td>
                           <td class="border-t-2 border-gray-200 px-4 py-3">{{ $completedCount->elapsedDays }}日</td>
                           <td class="border-t-2 border-gray-200 px-4 py-3 text-lg text-gray-900">{{ $completedCount->started_at }} 〜 {{ $completedCount->completed_at }}</td>
