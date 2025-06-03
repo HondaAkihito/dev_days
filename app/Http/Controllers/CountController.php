@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Services\CountService;
 use App\Http\Requests\StoreCountRequest;
 use App\Http\Requests\UpdateCountRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -21,20 +20,20 @@ class CountController extends Controller
         // countsテーブルのデータ取得
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $counts = $user->latestCount(); // Counts に記載
+        $count = $user->latestCount(); // Counts に記載
 
         // createへの分岐(レコードが存在しない or 完了済み)
-        if(is_null($counts) || $counts->is_completed === true ) {
+        if(is_null($count) || $count->is_completed === true ) {
             return to_route('counts.create');
         }
 
         // 経過日数の取得(本日の日付 - 開始日 = 経過日数)
-        $counts = CountService::getElapsedDays($counts);
+        $count = CountService::getElapsedDays($count);
 
         // 日付を Carbon で表示(05月を5月と表示するため)
-        $counts->formatted_started_at = Carbon::parse($counts->started_at)->format('n月j日');
+        $count->formatted_started_at = Carbon::parse($count->started_at)->format('n月j日');
         
-        return view('counts.index', compact('counts'));
+        return view('counts.index', compact('count'));
     }
 
     /**

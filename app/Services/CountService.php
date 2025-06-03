@@ -10,12 +10,12 @@ class CountService
 {
   // ⭐️ - index ------------------------------------------------------------
   // 経過日数の取得(本日の日付 - 開始日 = 経過日数)
-  public static function getElapsedDays($counts) {
+  public static function getElapsedDays($count) {
     $today = Carbon::today(); // 本日の日付 
-    $start = Carbon::parse($counts->started_at); // 開始日
-    $counts->elapsedDays = $start->diffInDays($today); // 経過日数
+    $start = Carbon::parse($count->started_at); // 開始日
+    $count->elapsedDays = $start->diffInDays($today); // 経過日数
 
-    return $counts;
+    return $count;
   }
 
   // ⭐️ - store ------------------------------------------------------------
