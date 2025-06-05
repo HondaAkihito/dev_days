@@ -10,8 +10,10 @@
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 text-gray-900">
                 <section class="text-gray-600 body-font relative">
-                    <form action="" method="POST" enctype="multipart/form-data">
-
+                    <form action="{{ route('completes.update', ['complete' => $completedCount->id ]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        
                         <div class="container px-5 mx-auto">
                         <div class="lg:w-1/2 md:w-2/3 mx-auto">
                             <div class="flex flex-wrap -m-2">

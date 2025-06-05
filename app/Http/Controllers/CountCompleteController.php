@@ -106,7 +106,26 @@ class CountCompleteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // 完了PFのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $completedCount = $user->counts()->find($id);
+
+        // 更新処理(画像保存処理)
+        if($request->hasFile('image_path')) {
+            $path = $request->file('image_path')->store('images', 'public'); // storage/app/public/images に保存
+            $completedCount->image_path = $path;
+        }
+
+        // 更新処理(画像以外)
+        $completedCount->title = $request->title;
+        $completedCount->started_at = $request->started_at;
+        $completedCount->completed_at = $request->completed_at;
+        $completedCount->url = $request->url;
+        $completedCount->memo = $request->memo;
+        $completedCount->save();
+
+        return to_route('completes.show', ['complete' => $completedCount->id]);
     }
 
     /**
