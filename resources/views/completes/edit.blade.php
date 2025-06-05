@@ -31,18 +31,25 @@
                                     </div>
                                     {{-- プレビュー表示 --}}
                                     <div class="relative">
-                                        {{-- 常に <img> タグを用意しておく --}}
+                                        {{-- ×ボタン（右上） --}}
+                                        <button type="button"
+                                            id="remove_image_btn"
+                                            onclick="removeImagePreview()"
+                                            class="absolute top-0 right-0 m-2 w-8 h-8 text-white bg-red-500 rounded-full shadow-lg flex items-center justify-center text-lg font-bold hover:bg-red-600 transition z-10">
+                                            ×
+                                        </button>
+                                        {{-- プレビュー画像 --}}
                                         <img id="image_preview"
                                             src="{{ $completedCount->image_path ? asset('storage/' . $completedCount->image_path) : '' }}"
                                             alt="ポートフォリオ画像"
                                             class="w-full h-auto rounded border border-gray-300 {{ $completedCount->image_path ? '' : 'hidden' }}">
                                         {{-- 初期画像がない場合にだけメッセージを表示 --}}
-                                        @unless($completedCount->image_path)
-                                            <div id="no_image_text" class="w-full h-64 flex items-center justify-center border border-dashed border-gray-300 rounded text-gray-400">
-                                                画像は登録されていません
-                                            </div>
-                                        @endunless
+                                        <div id="no_image_text"
+                                            class="w-full h-64 flex items-center justify-center border border-dashed border-gray-300 rounded text-gray-400 {{ $completedCount->image_path ? 'hidden' : '' }}">
+                                            画像は登録されていません
+                                        </div>
                                     </div>
+                                    
                                 </div>
                                 {{-- タイトル --}}
                                 <div class="p-2 w-full">
@@ -131,6 +138,31 @@ function previewImage(event) {
         };
 
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// ----- リアルタイムプレビューの×ボタン処理 ----------------------------------------------------------------------
+function removeImagePreview() {
+    const preview = document.getElementById('image_preview');
+    const noImageText = document.getElementById('no_image_text');
+    const fileInput = document.getElementById('image_path');
+    const removeBtn = document.getElementById('remove_image_btn');
+
+    // プレビューを非表示
+    preview.src = '';
+    preview.classList.add('hidden');
+
+    // 「画像は登録されていません」を表示
+    if(noImageText) {
+        noImageText.classList.remove('hidden');
+    }
+
+    // ファイル選択をリセット
+    fileInput.value = '';
+
+    // ×ボタンも削除
+    if(removeBtn) {
+        removeBtn.remove();
     }
 }
 
