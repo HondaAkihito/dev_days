@@ -84,7 +84,17 @@ class CountCompleteController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 完了PFのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $completedCount = $user->counts()->find($id);
+
+        // 経過日数の取得
+        $start = Carbon::parse($completedCount->started_at); // 開始日
+        $end = Carbon::parse($completedCount->completed_at); // 完了日 
+        $completedCount->elapsedDays = $start->diffInDays($end); // 経過日数
+
+        return view('completes.edit', compact('completedCount'));
     }
 
     /**

@@ -70,7 +70,7 @@
                                     <div class="flex justify-center w-full gap-4 pt-2">
                                         {{-- 編集ボタン --}}
                                         <form
-                                            action=""
+                                            action="{{ route('completes.edit', ['complete' => $completedCount->id ]) }}"
                                             method="get">
                                             <div class=" w-full">
                                                 <button
