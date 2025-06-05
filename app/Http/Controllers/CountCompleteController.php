@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Services\CountCompleteService;
 
 class CountCompleteController extends Controller
 {
@@ -24,11 +25,10 @@ class CountCompleteController extends Controller
         ->orderByDesc('completed_at')
         ->get();
 
-        // 経過日数の取得
+        // 制作日数の取得
         foreach($completedCounts as $completedCount) {
-            $start = Carbon::parse($completedCount->started_at); // 開始日
-            $end = Carbon::parse($completedCount->completed_at); // 完了日 
-            $completedCount->elapsedDays = $start->diffInDays($end); // 経過日数
+            // 制作日数の取得(開始日 - 完了日 = 制作日数)
+            $completedCount = CountCompleteService::getCompletedDays($completedCount);
         }
 
         return view('completes.index', compact('completedCounts'));
@@ -68,10 +68,8 @@ class CountCompleteController extends Controller
         $user = Auth::user();
         $completedCount = $user->counts()->find($id);
 
-        // 経過日数の取得
-        $start = Carbon::parse($completedCount->started_at); // 開始日
-        $end = Carbon::parse($completedCount->completed_at); // 完了日 
-        $completedCount->elapsedDays = $start->diffInDays($end); // 経過日数
+        // 制作日数の取得(開始日 - 完了日 = 制作日数)
+        $completedCount = CountCompleteService::getCompletedDays($completedCount);
 
         return view('completes.show', compact('completedCount'));
     }
@@ -89,10 +87,8 @@ class CountCompleteController extends Controller
         $user = Auth::user();
         $completedCount = $user->counts()->find($id);
 
-        // 経過日数の取得
-        $start = Carbon::parse($completedCount->started_at); // 開始日
-        $end = Carbon::parse($completedCount->completed_at); // 完了日 
-        $completedCount->elapsedDays = $start->diffInDays($end); // 経過日数
+        // 制作日数の取得(開始日 - 完了日 = 制作日数)
+        $completedCount = CountCompleteService::getCompletedDays($completedCount);
 
         return view('completes.edit', compact('completedCount'));
     }
@@ -111,19 +107,8 @@ class CountCompleteController extends Controller
         $user = Auth::user();
         $completedCount = $user->counts()->find($id);
 
-        // 更新処理(画像保存処理)
-        if($request->hasFile('image_path')) {
-            $path = $request->file('image_path')->store('images', 'public'); // storage/app/public/images に保存
-            $completedCount->image_path = $path;
-        }
-
-        // 更新処理(画像以外)
-        $completedCount->title = $request->title;
-        $completedCount->started_at = $request->started_at;
-        $completedCount->completed_at = $request->completed_at;
-        $completedCount->url = $request->url;
-        $completedCount->memo = $request->memo;
-        $completedCount->save();
+        // 更新処理
+        CountCompleteService::updateCompletedCount($request, $completedCount);
 
         return to_route('completes.show', ['complete' => $completedCount->id]);
     }
