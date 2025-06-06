@@ -121,6 +121,13 @@ class CountCompleteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // // 完了PFのデータ取得
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $completedCount = $user->counts()->find($id);
+
+        $completedCount->delete();
+
+        return to_route('completes.index');
     }
 }

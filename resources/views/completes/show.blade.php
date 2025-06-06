@@ -79,14 +79,19 @@
                                         </form>
                                         {{-- 削除ボタン --}}
                                         <form
-                                            action=""
-                                            method="post" id="delete_">
+                                            action="{{ route('completes.destroy', ['complete' => $completedCount->id ]) }}"
+                                            method="post" id="delete_{{ $completedCount->id }}">
                                             @csrf
                                             @method('DELETE')
                                             <div class="w-full">
-                                                <a href="#" data-id=""
-                                                    onclick="DeleteService.confirmAndDelete(this)" {{-- resources/js/services/DeleteService.js --}}
-                                                    class="flex mx-auto text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">削除</a>
+                                                <button type="button" 
+                                                    data-id="{{ $completedCount->id }}"
+                                                    data-form="delete"
+                                                    data-message="本当に削除していいですか？"
+                                                    onclick="confirmAndSubmit(this)"
+                                                    class="flex mx-auto text-white bg-pink-500 border-0 py-2 px-8 focus:outline-none hover:bg-pink-600 rounded text-lg">
+                                                    削除
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -99,4 +104,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // 確認メッセージ(削除)
+        function confirmAndSubmit(el) {
+            'use strict';
+            const id = el.dataset.id;
+            const formId = el.dataset.form;
+            const message = el.dataset.message;
+        
+            if(confirm(message)) {
+                document.getElementById(`${formId}_${id}`).submit();
+            }
+        }
+    </script>
 </x-app-layout>
