@@ -63,4 +63,10 @@ class User extends Authenticatable
     {
         return $this->counts()->latest()->first();
     }
+
+    // ゲストログイン
+    public function isGuest()
+    {
+        return $this->email === 'guest@example.com';
+    }
 }

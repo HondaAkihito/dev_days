@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CountController;
 use App\Http\Controllers\CountCompleteController;
+use App\Http\Controllers\GuestLoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ゲストログイン
+Route::get('/guest-login', [GuestLoginController::class, 'login'])->name('guest.login');
+
+// 通常ログイン
 Route::middleware('auth')->group(function () {
     // 日数カウンター
     Route::resource('counts', CountController::class);
@@ -25,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('completes', CountCompleteController::class);
 });
 
+// ログインなし(トップページ)
 Route::get('/', function () {
     return view('welcome');
 });
