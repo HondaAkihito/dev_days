@@ -32,7 +32,7 @@
         <p class="mb-6">{!! $message !!}</p>
         <button type="submit"
             class="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600 transition text-lg">
-                <a href="{{ url('/') }}">トップページはこちら</a>
+                <a href="{{ route('counts.index') }}">トップページはこちら</a>
         </button>
     </main>
 
