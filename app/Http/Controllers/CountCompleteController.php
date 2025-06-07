@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use App\Services\CountCompleteService;
+use App\Http\Requests\UpdateCountCompleteRequest;
 
 class CountCompleteController extends Controller
 {
@@ -100,7 +100,7 @@ class CountCompleteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCountCompleteRequest $request, $id)
     {
         // 完了PFのデータ取得
         /** @var \App\Models\User $user */

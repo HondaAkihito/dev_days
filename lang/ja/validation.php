@@ -165,10 +165,15 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
 
-        // counts - create, update
+        // counts ： create, update
         'title' => 'ポートフォリオ名',
         'started_at' => '作成開始日',
         'memo' => 'メモ欄',
+        
+        // countCompletes ： update
+        'image_path' => '画像',
+        'completed_at' => '作成完了日',
+        'url' => 'URL',
     ],
 
 ];

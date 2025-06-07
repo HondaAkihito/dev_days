@@ -28,6 +28,7 @@
                                             class="file-upload-btn inline-block px-4 py-1 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-md shadow-sm cursor-pointer hover:bg-gray-200 active:bg-gray-300 transition">
                                             ファイルを選択
                                         </label>
+                                        <x-input-error :messages="$errors->get('image_path')" class="mt-2" />
                                     </div>
                                     {{-- プレビュー表示 --}}
                                     <div class="relative">
@@ -56,21 +57,25 @@
                                     <div class="relative">
                                         <label for="title" class="leading-7 text-sm text-gray-600">ポートフォリオ名</label>
                                         <input type="text" id="title" name="title" value="{{ $completedCount->title }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <x-input-error :messages="$errors->get('title')" class="mt-2" />
                                     </div>
                                 </div>
-                                {{-- 作成開始日 --}}
+                                {{-- 作成日 --}}
                                 <div class="p-2 w-full">
+                                    {{-- 開始日 --}}
                                     <div class="relative">
                                         <label for="started_at" class="leading-7 text-sm text-gray-600">作成開始日</label>
                                         <input type="date" id="started_at" name="started_at"
                                             value="{{ $completedCount->started_at }}"
                                             class="bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                                
+                                        <x-input-error :messages="$errors->get('started_at')" class="mt-2" />
+                                        {{-- 完了日 --}}
                                         <div class="mt-1">
                                             <label for="completed_at" class="leading-7 text-sm text-gray-600">作成完了日</label>
                                             <input type="date" id="completed_at" name="completed_at"
                                                 value="{{ $completedCount->completed_at }}"
                                                 class="bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                            <x-input-error :messages="$errors->get('completed_at')" class="mt-2" />
                                         </div>
                                     </div>
                                 </div>
@@ -88,6 +93,7 @@
                                     <div class="relative">
                                         <label for="url" class="leading-7 text-sm text-gray-600">ポートフォリオURL</label>
                                         <input type="url" id="url" name="url" value="{{ $completedCount->url }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                        <x-input-error :messages="$errors->get('url')" class="mt-2" />
                                     </div>
                                 </div>
                                 {{-- メモ --}}
@@ -95,6 +101,7 @@
                                     <div class="relative">
                                         <label for="memo" class="leading-7 text-sm text-gray-600">メモ欄</label>
                                         <textarea id="memo" name="memo" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-y leading-6 transition-colors duration-200 ease-in-out">{{ $completedCount->memo }}</textarea>
+                                        <x-input-error :messages="$errors->get('memo')" class="mt-2" />
                                     </div>
                                 </div>
                                 <div class="p-2 w-full">
