@@ -10,6 +10,13 @@
           <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
               <div class="p-6 text-gray-900">
                 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+
+                    {{-- 検索フォーム --}}
+                    <form action="{{ route('completes.index') }}" method="get" class="mb-4">
+                      <input type="text" name="search" placeholder="タイトル / メモ" class="rounded-lg">
+                      <button class="text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded-lg text-lg mt-2">検索</button>
+                    </form>
+
                     <table class="whitespace-nowrap table-auto w-full text-left">
                       <thead>
                         <tr>

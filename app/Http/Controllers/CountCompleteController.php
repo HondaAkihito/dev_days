@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\CountCompleteService;
 use App\Http\Requests\UpdateCountCompleteRequest;
+use App\Models\Count;
 
 class CountCompleteController extends Controller
 {
@@ -14,16 +15,28 @@ class CountCompleteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // 検索データ
+        $search = $request->search;
+        $query = Count::search($search);
+
         // 完了データの取得
         /** @var \App\Models\User $user */
         $user = Auth::user();
-        $completedCounts = $user
-        ->counts()
-        ->where('is_completed', 1)
-        ->orderByDesc('completed_at')
-        ->paginate(10);
+        if(!empty($search)) { // 検索した場合
+            $completedCounts = $query
+                ->where('user_id', $user->id)
+                ->where('is_completed', 1)
+                ->orderByDesc('completed_at')
+                ->paginate(10);
+        } else { // 検索なしの場合
+            $completedCounts = $user
+                ->counts()
+                ->where('is_completed', 1)
+                ->orderByDesc('completed_at')
+                ->paginate(10);
+        }
 
         // 制作日数の取得
         foreach($completedCounts as $completedCount) {
