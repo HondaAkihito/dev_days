@@ -36,7 +36,7 @@
                                         <button type="button"
                                             id="remove_image_btn"
                                             onclick="removeImagePreview()"
-                                            class="absolute top-0 right-0 m-2 w-8 h-8 text-white bg-red-500 rounded-full shadow-lg flex items-center justify-center text-lg font-bold hover:bg-red-600 transition z-10">
+                                            class="absolute top-0 right-0 m-2 w-8 h-8 text-white bg-red-500 rounded-full shadow-lg flex items-center justify-center text-lg font-bold hover:bg-red-600 transition z-10 {{ $completedCount->image_path ? '' : 'hidden' }}">
                                             ×
                                         </button>
                                         {{-- プレビュー画像 --}}
@@ -132,6 +132,7 @@ function previewImage(event) {
     const input = event.target;
     const preview = document.getElementById('image_preview');
     const noImageText = document.getElementById('no_image_text');
+    const removeBtn = document.getElementById('remove_image_btn');
 
     if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -139,9 +140,8 @@ function previewImage(event) {
         reader.onload = function(e) {
             preview.src = e.target.result;
             preview.classList.remove('hidden');
-            if (noImageText) {
-                noImageText.classList.add('hidden');
-            }
+            noImageText?.classList.add('hidden'); // ?はtrueなら実行
+            removeBtn?.classList.remove('hidden'); // ×ボタンを表示
         };
 
         reader.readAsDataURL(input.files[0]);
@@ -155,23 +155,30 @@ function removeImagePreview() {
     const fileInput = document.getElementById('image_path');
     const removeBtn = document.getElementById('remove_image_btn');
 
-    // プレビューを非表示
+    // プレビュー非表示
     preview.src = '';
     preview.classList.add('hidden');
 
-    // 「画像は登録されていません」を表示
-    if(noImageText) {
-        noImageText.classList.remove('hidden');
-    }
+    // メッセージ表示
+    noImageText?.classList.remove('hidden');
 
     // ファイル選択をリセット
     fileInput.value = '';
 
-    // ×ボタンも削除
-    if(removeBtn) {
-        removeBtn.remove();
-    }
+    // ×ボタンを非表示（削除ではなく）
+    removeBtn?.classList.add('hidden');
 }
+
+// ページ読み込み時：画像がない場合 ×ボタン非表示（安全対策）
+window.addEventListener('DOMContentLoaded', () => {
+    const preview = document.getElementById('image_preview');
+    const removeBtn = document.getElementById('remove_image_btn');
+
+    if(!preview || preview.classList.contains('hidden') || !preview.src || preview.src.endsWith('/')) {
+        removeBtn?.classList.add('hidden');
+    }
+});
+
 
 // ----- 経過日数リアルタイム計算 ----------------------------------------------------------------------
 function calculateElapsedDays() {
