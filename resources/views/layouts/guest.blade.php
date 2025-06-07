@@ -26,5 +26,8 @@
                 {{ $slot }}
             </div>
         </div>
+        
+        {{-- フッター --}}
+        <x-footer-auth />
     </body>
 </html>

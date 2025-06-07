@@ -15,7 +15,9 @@
     <main class="flex-grow flex flex-col items-center justify-center text-center">
         <div class="text-center">
             <!-- タイトル -->
-            <h1 class="text-4xl font-bold text-gray-800 mb-6">Dev Days</h1>
+            <h1 class="mb-6">
+                <x-application-logo />
+            </h1>
     
             @if(Route::has('login'))
                 <!-- ボタンコンテナ -->
@@ -51,6 +53,6 @@
         </div>
     </main>
 
-    {{-- <x-footer-top /> --}}
+    <x-footer-top />
 </body>
 </html>
