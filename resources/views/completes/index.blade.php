@@ -34,6 +34,7 @@
                       </tbody>
                     </table>
                   </div>
+                  {{ $completedCounts->links() }}
               </div>
           </div>
       </div>

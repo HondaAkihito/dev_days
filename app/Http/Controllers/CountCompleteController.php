@@ -23,7 +23,7 @@ class CountCompleteController extends Controller
         ->counts()
         ->where('is_completed', 1)
         ->orderByDesc('completed_at')
-        ->get();
+        ->paginate(10);
 
         // 制作日数の取得
         foreach($completedCounts as $completedCount) {
