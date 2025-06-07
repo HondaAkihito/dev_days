@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,11 +20,13 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Count::factory(15)->create();
 
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // - devdays.png を storage にコピー ------------------------------
+        $from = public_path('img/devdays.png');
+        $to = storage_path('app/public/images/devdays.png');
+
+        if(File::exists($from)) {
+            File::copy($from, $to);
+        }
     }
 }
