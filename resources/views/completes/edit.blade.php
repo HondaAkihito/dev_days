@@ -41,7 +41,7 @@
                                         </button>
                                         {{-- プレビュー画像 --}}
                                         <img id="image_preview"
-                                            src="{{ $completedCount->image_path ? asset('storage/' . $completedCount->image_path) : '' }}"
+                                            src="{{ $completedCount->image_path ? asset('storage/images/' . $completedCount->image_path) : '' }}"
                                             alt="ポートフォリオ画像"
                                             class="w-full h-auto rounded border border-gray-300 {{ $completedCount->image_path ? '' : 'hidden' }}">
                                         {{-- 初期画像がない場合にだけメッセージを表示 --}}

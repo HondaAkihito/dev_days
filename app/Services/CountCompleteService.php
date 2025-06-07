@@ -21,9 +21,10 @@ class CountCompleteService
   public static function updateCompletedCount($request, $completedCount) {
     // 更新処理(画像保存処理)
     if($request->hasFile('image_path')) {
-      $path = $request->file('image_path')->store('images', 'public'); // storage/app/public/images に保存
-      $completedCount->image_path = $path;
-    }
+      $filename = uniqid() . '_' . $request->file('image_path')->getClientOriginalName();; // ファイル名を自分で作る
+      $request->file('image_path')->storeAs('images', $filename, 'public'); // images ディレクトリに保存（publicディスクを使って）
+      $completedCount->image_path = $filename; // DBにはファイル名だけを保存
+  }
 
     // 更新処理(画像以外)
     $completedCount->title = $request->title;

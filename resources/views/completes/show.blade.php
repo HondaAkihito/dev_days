@@ -18,7 +18,7 @@
                                     <div class="p-2 w-full">
                                         <div class="relative">
                                             @if($completedCount->image_path)
-                                                <img src="{{ asset('storage/' . $completedCount->image_path) }}"
+                                                <img src="{{ asset('storage/images/' . $completedCount->image_path) }}"
                                                     alt="ポートフォリオ画像"
                                                     class="w-full h-auto rounded border border-gray-300">
                                             @else
