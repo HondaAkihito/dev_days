@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('email:send-devdays')->dailyAt('04:00');
+        // $schedule->command('email:send-devdays')->everyMinute();
     }
 
     /**
