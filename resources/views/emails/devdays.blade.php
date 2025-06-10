@@ -1,3 +1,10 @@
-<p>{{ $name }}さん、こんにちは！</p>
-<p>現在のDevDaysは開始から <strong>{{ $days }}日</strong> 経過しました。</p>
-<p>引き続きがんばりましょう！</p>
+@component('mail::message')
+# DevDays 通知
+
+{{ $name }}さん、こんにちは！
+
+現在の DevDays は開始から **{{ $days }}日** 経過しました。
+
+引き続きがんばりましょう！
+
+@endcomponent
