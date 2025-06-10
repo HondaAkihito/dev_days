@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\CustomResetPassword;
 
+use Illuminate\Auth\Notifications\ResetPassword;
+
 
 class User extends Authenticatable
 {
@@ -49,6 +51,8 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new CustomResetPassword($token));
+        // リセットメールのデフォルト → 日本語にできないため↑カスタムを作成
+        // $this->notify(new ResetPassword($token));
     }
 
     // Countモデル リレーションション
